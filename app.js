@@ -4,15 +4,16 @@ const baseAPI = config.BASE;
 let enemyCount = 1;
 let randomInt = Math.floor(Math.random() * 732);
 
-(function getEnemy() {
+function getEnemy() {
   const url = baseAPI + keyAPI + "/" + randomInt + "/powerstats";
   fetch(url)
     .then((resp) => resp.json())
     .then((data) => {
-      console.log(data);
-      playerAttack(data);
+      //console.log(data);
+      getVillain(data);
+      calAttack(data);
     });
-})();
+}
 
 let player = {
   id: "Hero",
@@ -21,38 +22,34 @@ let player = {
   defense: 1,
 };
 
-function playerAttack(enemy) {
+function getVillain(enemy) {
   let enemyName = enemy.name;
-  console.log(enemyName);
-  if (
-    enemy.power != null ||
-    enemy.durability != null ||
-    enemy.strength != null
-  ) {
-    let enemyDam = enemy.power;
-    console.log("Enemy Dam is", enemyDam);
-    let enemyHP = enemy.durability;
-    console.log("Enemy Health is", enemyHP);
-    let enemyDefense = enemy.strength;
-    console.log("Enemy Defense is", enemyDefense);
-  }
-  //getAttack();
+  console.log("Your enemy is", enemyName);
+  let enemyDam = enemy.power;
+  let enemyHP = enemy.durability;
+  let enemyDefense = enemy.strength;
+  console.log(
+    `${enemy.name}'s damage is ${enemy.power}\n Health is ${enemy.durability}\n Defense is ${enemy.strength}`
+  );
 }
-/* function getAttack() {
-  enemyHP = enemyHP - (player.damage - enemyDefense);
+
+function calAttack(enemy) {
+  let enemyHP = enemy.durability - (player.damage - enemy.strength);
   if (enemyHP >= 1) {
     console.log(
-      `${enemyName} took ${
-        player.damage - enemyDefense
-      } damage! ${enemyName} HP: ${enemyHP}`
+      `${enemy.name} took ${player.damage - enemy.strength} damage! ${
+        enemy.name
+      } HP: ${enemy.durability}`
     );
   } else {
     console.log(
-      `${enemyName} took ${
-        player.damage - enemyDefense
+      `${enemy.name} took ${
+        player.damage - enemy.strength
       } damage and was defeated! Total victories: ${enemyCount}`
     );
-    enemyCount++; */
+    enemyCount++;
+  }
+}
 /* if (enemyCount >= 3) {
         enemyDefense = 3;
       }
