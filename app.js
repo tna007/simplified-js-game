@@ -6,32 +6,64 @@ let randomInt = Math.floor(Math.random() * 732);
 
 (function getEnemy() {
   const url = baseAPI + keyAPI + "/" + randomInt + "/powerstats";
-  console.log(url);
   fetch(url)
     .then((resp) => resp.json())
-    .then(getEnemDetail);
-  console.log(resp);
+    .then((data) => {
+      console.log(data);
+      playerAttack(data);
+    });
 })();
-function getEnemDetail(data) {
-  console.log(data);
-}
-/* let player = {
+
+let player = {
   id: "Hero",
-  health: 10,
+  HP: 10,
   damage: 5,
   defense: 1,
 };
 
-function playerAttack() {
-  enemy.health = enemy.health - (player.damage - enemy.defense);
-  if (enemy.health >= 1) {
+function playerAttack(enemy) {
+  let enemyName = enemy.name;
+  console.log(enemyName);
+  if (
+    enemy.power != null ||
+    enemy.durability != null ||
+    enemy.strength != null
+  ) {
+    let enemyDam = enemy.power;
+    console.log("Enemy Dam is", enemyDam);
+    let enemyHP = enemy.durability;
+    console.log("Enemy Health is", enemyHP);
+    let enemyDefense = enemy.strength;
+    console.log("Enemy Defense is", enemyDefense);
+  }
+  //getAttack();
+}
+/* function getAttack() {
+  enemyHP = enemyHP - (player.damage - enemyDefense);
+  if (enemyHP >= 1) {
     console.log(
-      `${enemy.id} took ${player.damage - enemy.defense} damage! ${
-        enemy.id
-      } HP: ${enemy.health}`
+      `${enemyName} took ${
+        player.damage - enemyDefense
+      } damage! ${enemyName} HP: ${enemyHP}`
     );
   } else {
     console.log(
+      `${enemyName} took ${
+        player.damage - enemyDefense
+      } damage and was defeated! Total victories: ${enemyCount}`
+    );
+    enemyCount++; */
+/* if (enemyCount >= 3) {
+        enemyDefense = 3;
+      }
+      enemyHP = 10;
+      console.log(
+        `A new ${enemy.id} appeared! ||HP: ${enemy.health}|| ||DMG: ${enemy.damage}|| ||DEF: ${enemy.defense}||`
+      ); */
+
+//else {
+
+/* console.log(
       `${enemy.id} took ${
         player.damage - enemy.defense
       } damage and was defeated! Total victories: ${enemyCount}`
