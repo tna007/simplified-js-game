@@ -1,14 +1,11 @@
+const keyAPI = config.KEY;
+const baseAPI = config.BASE;
+
 let enemyCount = 1;
-
-const api = {
-  key: 2904400629840616,
-  base: "https://superheroapi.com/api/",
-};
-
 let randomInt = Math.floor(Math.random() * 732);
 
 (function getEnemy() {
-  const url = api.base + api.key + "/" + randomInt + "/powerstats";
+  const url = baseAPI + keyAPI + "/" + randomInt + "/powerstats";
   console.log(url);
   fetch(url)
     .then((resp) => resp.json())
