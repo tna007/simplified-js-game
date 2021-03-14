@@ -19,9 +19,20 @@
         ><button class="invisible" name="reset" id="reset">Reset</button></a
       >
       <div class="playerInfo">
-        <button onclick="playerInfo()" name="yourinfo">Player Info</button>
-        <button onclick="enemyInfo()" name="enemyinfo">Enemy Info</button>
+        <button onclick="selectCharacterWindow()" name="yourinfo">
+          Select Player
+        </button>
+        <button onclick="enemyInfo()" name="enemyinfo">Select Enemy</button>
       </div>
+      <div id="selectedPlayer" class="selectedPlayer"></div>
+      You will fight against
+      <div id="selectedEnemy" class="selectedPlayer"></div>
+      
+      <section id="showCharacters">
+        <p>Select Character</p>
+        <div class="showCharacters" id="characters"></div>
+
+      </section>
       <div class="attack">
         <button onclick="takeTurn()" name="turn" id="turn">Attack</button>
       </div>
@@ -30,5 +41,6 @@
     <section id="player2"></section>
     <section id="attack"></section>
     <script src="script.js"></script>
+    <script src="character.js"></script>
   </body>
 </html>
