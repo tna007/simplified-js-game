@@ -14,8 +14,8 @@ async function getData() {
             this.imageurl = imageurl;
             this.whichFunc = whichFunc;
         }
-        getMethod(i) {
-            methodArray[i];
+        getMethod(x) {
+            methodArray[x];
         }
     }
 
@@ -25,16 +25,25 @@ async function getData() {
 
     let targetCharacter = new Character("Target", 100, 100, 0, "no-image", "no-value");
 
+    console.log(targetCharacter);
+
     let randomCharacter = new Character(json.characters[randomNum].id, json.characters[randomNum].health, json.characters[randomNum].damage, json.characters[randomNum].defense, json.characters[randomNum].imageurl, json.characters[randomNum].whichFunc);
 
-    function randomCharAttack() {
-        console.log(`Initial Target HP: ${targetCharacter.health}`);
+    console.log(`The randomCharacter is: ${randomCharacter.id}.`);
+    console.log(`New opponent is: ${targetCharacter.id}.`);
+
+    function heroAttack() {
+        console.log(`Target HP: ${targetCharacter.health}`);
         targetCharacter.health = targetCharacter.health - (randomCharacter.damage - targetCharacter.defense);
-        console.log(`Dealt ${randomCharacter.damage - targetCharacter.defense} damage! New Target HP: ${targetCharacter.health}`);
-        console.log(targetCharacter);
+        console.log(`${randomCharacter.id} dealt ${randomCharacter.damage - targetCharacter.defense} damage! New Target HP: ${targetCharacter.health}`);
+    }
+
+    function villainAttack() {
+        console.log(`Target HP: ${targetCharacter.health}`);
+        console.log(`${randomCharacter.id} is villainous.`);
     }
     
-    let methodArray = [randomCharAttack()];
+    let methodArray = [heroAttack(), villainAttack()];
 
     randomCharacter.getMethod(randomCharacter.whichFunc);
 }
