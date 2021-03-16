@@ -1,10 +1,13 @@
-console.log("Testing fetching and using own JSON data.");
+(async function getData() {
+    const TARGET_JSON = "https://public.bc.fi/s2100145/JSON-file/json.json";
 
-const TARGET_JSON = "https://public.bc.fi/s2100145/JSON-file/json.json";
+    let response = await fetch(`${TARGET_JSON}`);
+    let json = await response.json();
+    console.log("Testing fetching and using own JSON data.");
+    console.log(json);
 
-let randomNum = Math.round(Math.random());
+    let randomNum = Math.round(Math.random());
 
-async function getData() {
     class Character {
         constructor(id, health, damage, defense, imageurl, whichFunc) {
             this.id = id;
@@ -15,13 +18,9 @@ async function getData() {
             this.whichFunc = whichFunc;
         }
         getMethod(x) {
-            methodArray[x];
+            methodArray[x]();
         }
     }
-
-    let response = await fetch(`${TARGET_JSON}`);
-    let json = await response.json();
-    console.log(json);
 
     let targetCharacter = new Character("Target", 100, 100, 0, "no-image", "no-value");
 
@@ -43,9 +42,13 @@ async function getData() {
         console.log(`${randomCharacter.id} is villainous.`);
     }
     
-    let methodArray = [heroAttack(), villainAttack()];
+    let methodArray = [heroAttack, villainAttack];
 
-    randomCharacter.getMethod(randomCharacter.whichFunc);
-}
+    console.log(`whichFunc is: ${randomCharacter.whichFunc}`);
 
-getData();
+    console.log(`it should retrieve this with getMethod(): ${methodArray[randomCharacter.whichFunc]}`);
+
+
+    console.log(`Test 2`);
+    randomCharacter.getMethod(Number(randomCharacter.whichFunc));
+})();
