@@ -1,5 +1,5 @@
 let characterList = []; // list
-let hero;
+let hero; //objects
 let villan;
 let playerMovesMap = new Map(); //it is a Map of character names and their moves
 let turn = "player";
@@ -26,6 +26,13 @@ class Player {
   attack = (opponent) => {
     let moveID = Math.floor(Math.random() * Math.floor(2));
     let selectedMove = this.moves[moveID];
+    console.log(
+      this.name +
+        " is attacking " +
+        opponent.name +
+        " with the move " +
+        selectedMove
+    );
     switch (selectedMove) {
       case "hit":
         opponent.health = opponent.health - 10;
@@ -47,20 +54,25 @@ class Player {
 }
 
 const attackClickHandler = () => {
+  const heroName = document.getElementById("selectedPlayerName").innerHTML;
   console.log(
-    playerMovesMap.get(document.getElementById("selectedPlayerName").innerHTML)
+    " moves possible for  " + heroName + " " + playerMovesMap.get(heroName)
   );
+  const villanName = document.getElementById("selectedEnemyName").innerHTML;
   console.log(
-    playerMovesMap.get(document.getElementById("selectedEnemyName").innerHTML)
+    " moves possible for  " + villanName + " " + playerMovesMap.get(villanName)
   );
-  let playerName = document.getElementById("selectedPlayerName").innerHTML;
-  let enemyName = document.getElementById("selectedEnemyName").innerHTML;
-  hero = new Player(playerName, playerMovesMap.get(playerName));
-  villan = new Player(enemyName, playerMovesMap.get(enemyName));
+
+  hero = new Player(heroName, playerMovesMap.get(heroName));
+  villan = new Player(villanName, playerMovesMap.get(villanName));
   console.log(hero);
   console.log(villan);
   hero.attack(villan);
+  document.getElementById("villanHealth").value = villan.health;
   console.log(villan);
+  villan.attack(hero);
+  document.getElementById("PlayerHealth").value = hero.health;
+  console.log(hero);
 };
 const selectCharacterWindow = () => {
   let overlayWindow = document.getElementById("showCharacters");
