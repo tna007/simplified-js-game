@@ -54,19 +54,6 @@ class Player {
 }
 
 const attackClickHandler = () => {
-  const heroName = document.getElementById("selectedPlayerName").innerHTML;
-  console.log(
-    " moves possible for  " + heroName + " " + playerMovesMap.get(heroName)
-  );
-  const villanName = document.getElementById("selectedEnemyName").innerHTML;
-  console.log(
-    " moves possible for  " + villanName + " " + playerMovesMap.get(villanName)
-  );
-
-  hero = new Player(heroName, playerMovesMap.get(heroName));
-  villan = new Player(villanName, playerMovesMap.get(villanName));
-  console.log(hero);
-  console.log(villan);
   hero.attack(villan);
   document.getElementById("villanHealth").value = villan.health;
   console.log(villan);
@@ -81,7 +68,7 @@ const selectCharacterWindow = () => {
 };
 const selectCharacter = (event) => {
   document.getElementById("selectPlayer").style.display = "none";
-  document.getElementById("health").style.display = "block";
+  document.getElementById("health").style.display = "flex";
   let source = event.target || event.srcElement;
   console.log(source);
   let overlayWindow = document.getElementById("showCharacters");
@@ -89,15 +76,38 @@ const selectCharacter = (event) => {
   document.getElementById("selectedPlayer").style.visibility = "visible";
   document.getElementById("selectedPlayer").style.content =
     "url(" + source.getAttribute("characterImage") + ")";
-  document.getElementById("selectedPlayerName").innerHTML = source.getAttribute(
-    "characterName"
-  );
+  const heroName = source.getAttribute("characterName");
+  document.getElementById("selectedPlayerName").innerHTML = heroName;
   let enemyId = Math.floor(Math.random() * Math.floor(12));
   document.getElementById("selectedEnemy").style.visibility = "visible";
   document.getElementById("selectedEnemy").style.content =
     "url(" + characterList[enemyId].head_shot + ")";
-  document.getElementById("selectedEnemyName").innerHTML =
-    characterList[enemyId].name;
+  const villanName = characterList[enemyId].name;
+  document.getElementById("selectedEnemyName").innerHTML = villanName;
+
+  console.log(
+    " moves possible for  " + heroName + " " + playerMovesMap.get(heroName)
+  );
+  let attackResult = document.getElementById("attack");
+  let result = document.createElement("p");
+  result.innerHTML = `A hero ${heroName} appeared! He can ${playerMovesMap.get(
+    heroName
+  )}||`;
+  attackResult.appendChild(result);
+  let result1 = document.createElement("p");
+  result1.innerHTML = `A villan ${villanName} appeared! He can ${playerMovesMap.get(
+    villanName
+  )}||`;
+  attackResult.appendChild(result1);
+
+  console.log(
+    " moves possible for  " + villanName + " " + playerMovesMap.get(villanName)
+  );
+
+  hero = new Player(heroName, playerMovesMap.get(heroName));
+  villan = new Player(villanName, playerMovesMap.get(villanName));
+  console.log(hero);
+  console.log(villan);
 };
 document.getElementById("selectPlayer").style.display = "block";
 document.getElementById("health").style.display = "none";

@@ -2,8 +2,6 @@
     --accent-color-1: #67f15a;
     --accent-color-2: #0fe419;
 }
-
-
 body {
     font-family: "Dosis", sans-serif;
     background-image: linear-gradient( to right top, #d87368, #906b69, #fe8a82, #0a0a097a, #e47878 );
@@ -34,9 +32,9 @@ body {
    top:0;
    bottom: 0;
    right: 0;
-   margin: auto;
-   margin-top: 10rem;
-   margin-top: 40rem;
+   margin: 0 auto;
+   margin-top: 20rem;
+   margi
 }
 
 #showCharacters{
@@ -64,9 +62,8 @@ body {
 p{
     text-align: center;
     color: rgb(17, 238, 238);
-    font-weight: 300;
-  
-}
+   font-weight: 300;
+ }
 
 .playerEnemyDisplay{
     display: flex;
@@ -85,30 +82,18 @@ p{
  
 }
 progress[value] {
-    /* Reset the default appearance */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  
-    /* Get rid of default border in Firefox. */
-    border: none;
-  
-    /* dimensions */
+   
+     border: none;
     width: 5rem;
     height: 1.5rem;
     flex: 8;
   }
-   .health-container{
-       margin:5rem;
+   #health{
        display: flex;
        justify-content:space-between;
        text-align: center;
    }
-  .health {
-    width: 50%;
-    margin-bottom: 2rem;
-    display: flex;
-  }
+ 
   .health label {
     font-size: 1rem;
     margin: 0.5rem;
@@ -135,17 +120,12 @@ progress[value] {
 #characters{
     margin-top: 10px;
 }
-
-.row {
-    display: block;
-    float:left;
-    width:100%;
-}
-
   label{
       padding: 8PX;
   }
   button{
+      display: block;
+      margin: auto;
       background-color: black;
       color: blanchedalmond;
       padding: 1em 2em;
@@ -153,6 +133,6 @@ progress[value] {
       font-family:"Press Start 2P", "Courier New", Courier, monospace;
       border:1px solid;
       box-shadow: 2px 5px;
-   margin: 0 auto;
+    
   }
   
