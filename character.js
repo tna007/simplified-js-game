@@ -56,9 +56,11 @@ class Player {
 const attackClickHandler = () => {
   hero.attack(villan);
   document.getElementById("villanHealth").value = villan.health;
+  document.getElementById("enemyHealthCount").innerHTML = villan.health + " %";
   console.log(villan);
   villan.attack(hero);
   document.getElementById("PlayerHealth").value = hero.health;
+  document.getElementById("playerHealthCount").innerHTML = hero.health + " %";
   console.log(hero);
 };
 const selectCharacterWindow = () => {
