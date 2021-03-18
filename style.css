@@ -3,7 +3,7 @@
     --accent-color-2: #0fe419;
 }
 body {
-    font-family: "Dosis", sans-serif;
+    font-family: "Dosis", "sans-serif";
     background-image: linear-gradient( to right top, #d87368, #906b69, #fe8a82, #0a0a097a, #e47878 );
     background-attachment: fixed;
     text-align: center;
@@ -34,7 +34,7 @@ body {
    right: 0;
    margin: 0 auto;
    margin-top: 20rem;
-   margi
+  
 }
 
 #showCharacters{
