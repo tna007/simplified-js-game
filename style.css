@@ -135,4 +135,39 @@ progress[value] {
       box-shadow: 2px 5px;
     
   }
+  #gameResult{
+    visibility: hidden;
+    position: fixed;
+    top:0;
+    left:0;
+     width: 100%;
+    height: 30%;
+    color: rgba(7, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gameOver{
+    background-color:transparent;
+    padding: 100px 0 0 0;
+    background-color: aliceblue;
+    width: 40%;
+    height:40%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    position: relative;
+    font-family: "Press Start 2P", cursive;
+    margin-top: 50rem;
+    margin-left: 8rem;
+  }
+  
+  .gameover button {
+    background-color: transparent;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    outline: none;
+  }
   

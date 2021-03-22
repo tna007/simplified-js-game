@@ -1,6 +1,7 @@
 let characterList = []; // list
 let hero; //objects
 let villan;
+let close = document.getElementById("close");
 let playerMovesMap = new Map(); //it is a Map of character names and their moves
 let turn = "player";
 playerMovesMap.set("Blackheart", ["hit", "kick"]);
@@ -26,42 +27,65 @@ class Player {
   attack = (opponent) => {
     let moveID = Math.floor(Math.random() * Math.floor(2));
     let selectedMove = this.moves[moveID];
-    console.log(
+    const attackString =
       this.name +
-        " is attacking " +
-        opponent.name +
-        " with the move " +
-        selectedMove
-    );
+      " is attacking " +
+      opponent.name +
+      " with the move " +
+      selectedMove;
+    console.log(attackString);
     switch (selectedMove) {
       case "hit":
-        opponent.health = opponent.health - 10;
+        opponent.health = opponent.health - 10<0?0:opponent.health - 10;
         break;
       case "kick":
-        opponent.health = opponent.health - 20;
+        opponent.health = opponent.health - 20<0?0:opponent.health - 20;
         break;
       case "punch":
-        opponent.health = opponent.health - 30;
+        opponent.health = opponent.health - 30<0?0:opponent.health - 30;
         break;
       case "stab":
-        opponent.health = opponent.health - 40;
+        opponent.health = opponent.health - 40<0?0:opponent.health - 40;
         break;
 
       default:
         break;
     }
+    return attackString;
   };
 }
 
 const attackClickHandler = () => {
-  hero.attack(villan);
+  let attckeResult = hero.attack(villan);
   document.getElementById("villanHealth").value = villan.health;
   document.getElementById("enemyHealthCount").innerHTML = villan.health + " %";
-  console.log(villan);
-  villan.attack(hero);
+
+  if(villan.health<=0){
+    gameOver(villan);
+    return;
+  }
+  
+  console.log(attckeResult);
+  let attackResult = document.getElementById("attack");
+  let result = document.createElement("p");
+  result.innerHTML =attckeResult;
+  attackResult.appendChild(result);
+
+  attckeResult = villan.attack(hero);
   document.getElementById("PlayerHealth").value = hero.health;
   document.getElementById("playerHealthCount").innerHTML = hero.health + " %";
-  console.log(hero);
+  console.log(attckeResult);
+  
+  if(hero.health<=0){
+    gameOver(hero);
+    return;
+  }
+  
+  let result1 = document.createElement("p");
+  result1.innerHTML = attckeResult;
+  attackResult.appendChild(result1);
+
+
 };
 const selectCharacterWindow = () => {
   let overlayWindow = document.getElementById("showCharacters");
@@ -122,6 +146,10 @@ const fetchCharacters = async () => {
     console.log(error);
   }
 };
+
+const gameOver=(winner)=>{
+  document.getElementById("gameResult").style.visibility="visible";
+}
 const createCharacterGrid = async () => {
   characterList = await fetchCharacters();
 
@@ -144,3 +172,7 @@ const createCharacterGrid = async () => {
     document.getElementById("characters").appendChild(row);
   }
 };
+const reload = () => {
+  window.location.reload(); // reload page
+};
+close.addEventListener("click", reload); // adding event listener to close button
