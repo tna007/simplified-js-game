@@ -1,0 +1,62 @@
+{
+  "enemies": [
+    {
+      "id": "Ogre",
+      "health": "7",
+      "damage": "3",
+      "defense": "0",
+      "whichFunc": "0",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/ogre.png"
+    },
+    {
+      "id": "Skeleton",
+      "health": "5",
+      "damage": "2",
+      "defense": "0",
+      "whichFunc": "1",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/skeleton.png"
+    },
+    {
+      "id": "Werewolf",
+      "health": "9",
+      "damage": "4",
+      "defense": "1",
+      "whichFunc": "2",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/werewolf.png"
+    },
+    {
+      "id": "Demon",
+      "health": "8",
+      "damage": "4",
+      "defense": "0",
+      "whichFunc": "3",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/demon.png"
+    },
+    {
+      "id": "Knight Artorias",
+      "health": "11",
+      "damage": "5",
+      "defense": "2",
+      "whichFunc": "4",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/artorias.png"
+    }
+  ],
+  "hero": [
+    {
+      "id": "Your Hero",
+      "health": "10",
+      "damage": "5",
+      "defense": "0",
+      "whichFunc": "0",
+      "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/hero.png.png"
+    },
+    {
+      "id": "Gambit",
+      "health": "20",
+      "damage": "10",
+      "defense": "0",
+      "whichFunc": "1",
+      "imageurl": "https://www.superherodb.com/pictures2/portraits/10/100/64.jpg"
+    }
+  ]
+}
