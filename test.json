@@ -48,6 +48,7 @@
       "damage": "5",
       "defense": "0",
       "whichFunc": "0",
+      "ultra": "0",
       "imageurl": "https://public.bc.fi/s2100145/simpleRPGsprites/hero.png.png"
     },
     {
@@ -56,6 +57,7 @@
       "damage": "10",
       "defense": "0",
       "whichFunc": "1",
+      "ultra": 1,
       "imageurl": "https://www.superherodb.com/pictures2/portraits/10/100/64.jpg"
     }
   ]
