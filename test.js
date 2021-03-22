@@ -38,13 +38,13 @@
   }
 
   let player = new Character(
-    json.hero[randomNum2].id,
-    json.hero[randomNum2].health,
-    json.hero[randomNum2].damage,
-    json.hero[randomNum2].defense,
-    json.hero[randomNum2].imageurl,
-    json.hero[randomNum2].whichFunc,
-    json.hero[randomNum2].methodUltraArrayIndex
+    "Hero",
+    10,
+    6,
+    1,
+    "https://public.bc.fi/s2100145/simpleRPGsprites/hero.png.png",
+    5,
+    0
   ); // note: whichFunc, the last value, will need to be changed depending on which index in methodArray the player's attack function is.
 
   let enemy = new Character(
