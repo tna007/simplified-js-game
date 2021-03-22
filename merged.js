@@ -184,6 +184,8 @@
     }
     attackLog(attackerName,playerLog);
     updateHealth(player.health,enemy.health);
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
   }
 
   function skeleAttack() {
@@ -208,6 +210,8 @@
     }
     attackLog(attackerName,playerLog);
     updateHealth(player.health,enemy.health);
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
     }
 
   function wereAttack() {
@@ -234,6 +238,8 @@
     }
     attackLog(attackerName,playerLog);
     updateHealth(player.health,enemy.health);
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
    }
 
   function demonAttack() {
@@ -259,6 +265,8 @@
 
     attackLog(attackerName,playerLog);
     updateHealth(player.health,enemy.health);
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
   }
 
   function artoriasAttack() {
@@ -284,6 +292,8 @@
 
     attackLog(attackerName,playerLog);
     updateHealth(player.health,enemy.health);
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
 }
   
 
@@ -319,7 +329,8 @@
         `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
       );
     }
-    
+    document.getElementById("PlayerHealth").value=heroHealth;
+    document.getElementById("villanHealth").value=enemyHealth;
   }
 
   let methodArray = [
