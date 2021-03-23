@@ -1,6 +1,6 @@
 (async function getData() {
   const TARGET_JSON =
-    "https://raw.githubusercontent.com/tna007/simplified-js-game/main/test-app/test.json"; // our own .json file.
+    "https://raw.githubusercontent.com/tna007/simplified-js-game/main/test-app/main/test.json"; // our own .json file.
 
   let response = await fetch(`${TARGET_JSON}`);
   let json = await response.json();
