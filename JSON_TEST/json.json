@@ -1,0 +1,1 @@
+{"characters":[{"id":"Hero","health":"10","damage":"5","defense":"3","whichFunc":"0","imageurl":"https://public.bc.fi/s2100145/simpleRPGsprites/hero.png.png"},{"id":"Villain","health":"12","damage":"4","defense":"1","whichFunc":"1","imageurl":"https://public.bc.fi/s2100145/simpleRPGsprites/enemy.png.png"}]}
