@@ -84,11 +84,15 @@ body {
     margin:10rem ;
 }
 .displayBox{
-    width: 80%;
-    height:40%;
-    border:solid black;
-    padding: 70px;
-    margin-bottom: 5rem;;
+  background-color: rgb(218, 227, 230);
+  height: 200px;
+  width: 600px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  margin-bottom: 20rem;
+}
+h4{
+  margin-bottom: 5rem;
 }
 
 .invisible {
