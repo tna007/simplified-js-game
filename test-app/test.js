@@ -1,36 +1,31 @@
 (async function getData() {
   const TARGET_JSON =
-    "https://raw.githubusercontent.com/tna007/simplified-js-game/fetch_villain/test.json"; // our own .json file.
+    "https://raw.githubusercontent.com/tna007/simplified-js-game/main/test-app/test.json"; // our own .json file.
 
   let response = await fetch(`${TARGET_JSON}`);
   let json = await response.json();
   console.log("Object Test v1.5");
 
   let randomNum = Math.round(Math.random() * 4); // random number to specify enemy type.
-  let randomNum2 = Math.round(Math.random() * 2); // random number to specify hero type.
+  let randomNum2 = Math.round(Math.random() * 1); // random number to specify enemy type.
 
   let winCount = 0;
 
   class Character {
-    constructor(
-      id,
-      health,
-      damage,
-      defense,
-      imageurl,
-      whichFunc,
-      methodUltraArrayIndex
-    ) {
+    constructor(id, health, damage, defense, imageurl, whichFunc, ultra) {
       this.id = id;
       this.health = health;
       this.damage = damage;
       this.defense = defense;
       this.imageurl = imageurl;
-      this.whichFunc = whichFunc;
-      this.ultra = methodUltraArrayIndex; // variable that is passed into getMethod to acquire correct function from methodArray.
+      this.whichFunc = whichFunc; // variable that is passed into getMethod to acquire correct function from methodArray.
+      this.ultra = ultra; // secondary function.
     }
-    getMethod(x) {
+    getEnemyAttack(x) {
       methodArray[x](); // when a Character class object calls getMethod, it will execute a function from methodArray based on the parameter that is passed.
+    }
+    getHeroAttack(b) {
+      methodHerroArray[b]();
     }
     getUltra(a) {
       methodUltra[a]();
@@ -38,13 +33,13 @@
   }
 
   let player = new Character(
-    "Hero",
-    10,
-    6,
-    1,
-    "https://public.bc.fi/s2100145/simpleRPGsprites/hero.png.png",
-    5,
-    0
+    json.hero[randomNum2].id,
+    json.hero[randomNum2].health,
+    json.hero[randomNum2].damage,
+    json.hero[randomNum2].defense,
+    json.hero[randomNum2].imageurl,
+    json.hero[randomNum2].whichFunc,
+    json.hero[randomNum2].ultra
   ); // note: whichFunc, the last value, will need to be changed depending on which index in methodArray the player's attack function is.
 
   let enemy = new Character(
@@ -240,68 +235,60 @@
     }
   }
 
-  function ultraAttack() {
-    let randomNum3 = Math.random();
-    console.log(randomNum3);
-    if (randomNum3 <= 0.33) {
-      // 33% chance to deal full damage(no defense taken into account).
-      enemy.health = enemy.health - player.damage;
+  function heroUltra() {
+    console.log(`This is the ultra move!!`);
+    enemy.health = enemy.health - player.damage;
+    if (enemy.health >= 1) {
       console.log(
-        `GUARD BREAK!Your ${player.id} expertly removed Enemy defense for a clean hit!`
+        `You dealt ${player.damage} damage! ${enemy.id} HP: ${enemy.health}`
       );
-      if (enemy.health >= 1) {
-        console.log(
-          `Your ${player.id}'s attack dealt the full ${player.damage} damage! Enemy HP: ${enemy.health}`
-        );
-      } else {
-        console.log(
-          `Your ${player.id}'s strike defeated your enemy, dealing the full ${player.damage} damage! Enemy HP: ${enemy.health}`
-        );
-        newEnemy();
-        document.querySelector("#ultra").classList.add("invisible");
-        //document.querySelector("#reset").classList.remove("invisible");
-      }
     } else {
-      enemy.health = enemy.health - (player.damage - enemy.defense);
-      if (enemy.health >= 1) {
+      winCount++;
+      console.log(
+        `Ultra move! ${enemy.id} was defeated! Total victories: ${winCount}`
+      );
+      player.health = player.health + Math.round(enemy.damage / 3);
+      console.log(
+        `You recovered ${Math.round(enemy.damage / 3)} health! Your HP: ${
+          player.health
+        }`
+      ); // Every enemy defeated gives you some health back.
+      if (winCount % 2 == 0) {
+        player.health = player.health + 3; // Every two enemies you defeat gives you bonus health.
         console.log(
-          `Your ${player.id} attacked your enemy dealing ${
-            player.damage - enemy.defense
-          } damage! Enemy HP: ${enemy.health}`
+          `Your battle experience defeating multiple foes has made you stronger; you gained 3 HP! Your HP: ${player.health}`
         );
-      } else {
-        console.log(
-          `Your ${player.id} dealt ${
-            player.damage - enemy.defense
-          } damage and defeated your enemy!`
-        );
-        document.querySelector("#ultra").classList.add("invisible");
-        //document.querySelector("#reset").classList.remove("invisible");
       }
+      newEnemy(); // create a new enemy after defeating the previous one.
+      console.log(
+        `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
+      );
     }
   }
-  let methodUltra = [ultraAttack];
+
   let methodArray = [
     ogreAttack,
     skeleAttack,
     wereAttack,
     demonAttack,
     artoriasAttack,
-    heroAttack,
   ]; // functions to be used by the objects as methods.
+  let methodHerroArray = [heroAttack];
+  let methodUltra = [heroUltra]; // secondary function.
 
   // ************************************* Button functions *************************************
 
   document
-    .getElementById("turn")
+    .getElementById("attack")
     .addEventListener("click", function takeTurn() {
-      player.getMethod(player.whichFunc);
-      enemy.getMethod(enemy.whichFunc);
+      player.getHeroAttack(player.whichFunc);
+      enemy.getEnemyAttack(enemy.whichFunc);
     });
+
   document
     .getElementById("ultra")
     .addEventListener("click", function takeTurn() {
       player.getUltra(player.ultra);
-      enemy.getMethod(enemy.whichFunc);
+      enemy.getEnemyAttack(enemy.whichFunc);
     });
 })();
