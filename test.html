@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
+    <title>Merging code tests</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <h1>Simple RPG</h1>
+    <div class="container">
+    <div class="players">
+    <div id="sprite">
+    <div class="label" id="selectedPlayerName"></div>
+    </div>
+    <div id="picture">
+    <div class="label" id="selectedEnemyName"></div>
+    </div>
+   </div>
+   <div class="health-container" id="health">
+    <div class="health">
+
+      <progress id="PlayerHealth" value="10" max="10"></progress>
+      <p id="playerHealthCount">10 HP</p>
+    </div>
+    <div class="health">
+    
+      <progress id="villanHealth" value="10" max="10"></progress>
+      <p id="enemyHealthCount">10 HP</p>
+    </div>
+</div>
+<div class="damage">
+<div class="playerData">
+<label for="damage" id="playerDamage">DMG-</label><br><br>
+<label for="defeat" id="playerDefeat">DEF- </label>
+</div>
+<div class="enemyData">
+    <label for="damage" id="enemyDamage">DMG-</label><br><br>
+    <label for="defeat" id="enemyDefeat">DEF-</label>
+    </div>
+</div>
+<div class="gameButtons">
+<button name="turn" id="turn">Attack</button>
+<button name="turnHeavy" id="turnHeavy">Heavy Attack</button>
+</div>
+<div class="displayBox" id="displayBox">
+     
+</div>
+<h4 id="gameover"></h4>
+    <a href="merged.html"><button class="invisible" name="reset" id="reset">Reset</button></a>
+    
+    <script src="test1.js"></script>
+</body>
+</html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
