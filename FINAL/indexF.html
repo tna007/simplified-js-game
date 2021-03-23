@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  />
+    <title>Simple RPG</title>
+    <link rel="stylesheet" href="styleF.css">
+</head>
+<body>
+    <h1>Simple RPG</h1>
+    <div class="container">
+    <div class="players">
+    <div id="sprite">
+    <div class="label" id="selectedPlayerName"></div>
+    </div>
+    <div id="picture">
+    <div class="label" id="selectedEnemyName"></div>
+    </div>
+   </div>
+   <div class="health-container" id="health">
+    <div class="health">
+
+      <progress id="PlayerHealth" value="10" max="10"></progress>
+      <p id="playerHealthCount"></p>
+    </div>
+    <div class="health">
+    
+      <progress id="villanHealth" value="10" max="10"></progress>
+      <p id="enemyHealthCount"></p>
+    </div>
+</div>
+<div class="damage">
+<div class="playerData">
+<label for="damage" id="playerDamage"></label><br><br>
+<label for="defeat" id="playerDefeat"></label>
+</div>
+<div class="enemyData">
+    <label for="damage" id="enemyDamage"></label><br><br>
+    <label for="defeat" id="enemyDefeat"></label>
+    </div>
+</div>
+<div class="gameButtons">
+<button name="turn" id="turn">Slash</button>
+<button name="ultra" id="ultra">Pierce</button>
+</div>
+<div class="displayBox" id="displayBox">
+     
+</div>
+<section id="result">
+
+  <div class="endgame">
+      <h5 id="finalblow"></h5>
+
+      <p id="gameover"></p>
+
+      <button type="button" id="close" onClick="window.location.reload()">Close</button>
+
+  </div>
+
+</section>
+
+    <script src="CONSTRUCTION.js"></script>
+</body>
+</html>
