@@ -60,7 +60,7 @@
   sprite.appendChild(img);
 
   let playerName = document.getElementById("selectedPlayerName");
-  playerName.innerHTML = player.id; // displays "Hero" above image.
+  playerName.textContent = player.id; // displays "Hero" above image.
 
   let picture = document.querySelector("#picture");
   let img1 = document.createElement("img");
@@ -69,20 +69,20 @@
   picture.appendChild(img1);
 
   let enemyName = document.getElementById("selectedEnemyName");
-  enemyName.innerHTML = enemy.id; // displays enemy id above image.
+  enemyName.textContent = enemy.id; // displays enemy id above image.
 
   // *********** Initial text console messages ***********
 
   let attackResult = document.getElementById("displayBox"); // the text console in the UI.
   let display = document.createElement("p");
-  display.innerHTML = `You are playing as a ${player.id}, HP: ${player.health} DMG: ${player.damage} DEF: ${player.defense}`;
+  display.textContent = `You are playing as a ${player.id}, HP: ${player.health} DMG: ${player.damage} DEF: ${player.defense}`;
   attackResult.appendChild(display);
   console.log(
     `You are playing as a ${player.id}, HP: ${player.health} DMG: ${player.damage} DEF: ${player.defense}`
   );
 
   let result1 = document.createElement("p");
-  result1.innerHTML = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
+  result1.textContent = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
   attackResult.appendChild(result1);
   console.log(
     `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
@@ -103,14 +103,15 @@
     );
 
     let result1 = document.createElement("p");
-    result1.innerHTML = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
+    result1.textContent = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
     attackResult.appendChild(result1);
     console.log(
       `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
     );
 
     picture = document.querySelector("#picture");
-    picture.innerHTML = `<img src="${enemy.imageurl}" alt="char-image">`;
+    picture.innerHTML = `<div class="label" id="selectedEnemyName">${enemy.id}</div>
+    <img src="${enemy.imageurl}" alt="char-image">`;
   }
 
   function attackLog(attackerName, playerLog) {
@@ -118,11 +119,11 @@
     let attackResult = document.getElementById("displayBox");
 
     let display = document.createElement("p");
-    display.innerHTML = attackerName;
+    display.textContent = attackerName;
     attackResult.appendChild(display);
 
     let display1 = document.createElement("p");
-    display1.innerHTML = playerLog;
+    display1.textContent = playerLog;
     attackResult.appendChild(display1);
   }
 
