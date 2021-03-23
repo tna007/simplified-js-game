@@ -1,0 +1,161 @@
+:root {
+  --accent-color-1: #67f15a;
+  --accent-color-2: #0fe419;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Dosis", "sans-serif";
+  background-image: linear-gradient(
+    to right top,
+    #d87368,
+    #906b69,
+    #fe8a82,
+    #0a0a097a,
+    #e47878
+  );
+  background-attachment: fixed;
+  text-align: center;
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+  font-size: 1rem;
+}
+h1 {
+  text-align: center;
+  margin: 3rem;
+}
+.players {
+  display: flex;
+  justify-content: space-around;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+}
+img {
+  width: 20vw;
+  height: 100%;
+  object-fit: cover;
+}
+progress[value] {
+  border: none;
+  width: 15rem;
+  height: 1.5rem;
+  flex: 8;
+}
+#health {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.health label {
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px #00000080 inset;
+  margin: 0.5rem;
+}
+progress[value]::-webkit-progress-value {
+  background: var(--accent-color-1);
+  background-image: -webkit-linear-gradient(
+    150deg,
+    var(--accent-color-1) 50%,
+    var(--accent-color-2) 100%
+  );
+  border-radius: 2px;
+}
+.damage {
+  display: flex;
+  justify-content: space-between;
+}
+button {
+  display: block;
+  margin: auto;
+  background-color: rgb(0, 0, 0);
+  color: blanchedalmond;
+  padding: 1em 2em;
+  font-size: 15px;
+  font-family: "Press Start 2P", "Courier New", Courier, monospace;
+  border: 1px solid;
+  box-shadow: 2px 5px;
+  cursor: pointer;
+}
+
+button #close {
+  display: inline;
+  z-index: 10000000000;
+  position: absolute;
+}
+
+.gameButtons {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem;
+}
+.displayBox {
+  background-color: rgb(218, 227, 230);
+  height: 200px;
+  width: 600px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  margin-bottom: 20rem;
+}
+
+.invisible {
+  display: none;
+}
+
+#result {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.endgame {
+  background-color: rgba(255, 255, 255, 0.87);
+  border-radius: 20px;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  margin: 5rem;
+  padding: 5rem;
+}
+
+.endgame button {
+  position: absolute;
+  display: inline-block;
+  top: 5rem;
+  right: 21.5rem;
+  background-color: transparent;
+  color: black;
+  border: none;
+  outline: none;
+}
+
+#gameover {
+  font-size: 50px;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+}

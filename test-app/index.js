@@ -6,8 +6,8 @@
   let json = await response.json();
   console.log("Object Test v1.5");
 
-  let randomNum = Math.round(Math.random() * 4); // random number to specify enemy type.
-  let randomNum2 = Math.round(Math.random() * 1); // random number to specify enemy type.
+  let randNum = Math.round(Math.random() * 3); // random number to specify enemy type.
+  let randNum2 = Math.round(Math.random() * 1); // random number to specify enemy type.
 
   let winCount = 0;
 
@@ -33,36 +33,57 @@
   }
 
   let player = new Character(
-    json.hero[randomNum2].id,
-    json.hero[randomNum2].health,
-    json.hero[randomNum2].damage,
-    json.hero[randomNum2].defense,
-    json.hero[randomNum2].imageurl,
-    json.hero[randomNum2].whichFunc,
-    json.hero[randomNum2].ultra
+    json.hero[randNum2].id,
+    json.hero[randNum2].health,
+    json.hero[randNum2].damage,
+    json.hero[randNum2].defense,
+    json.hero[randNum2].imageurl,
+    json.hero[randNum2].whichFunc,
+    json.hero[randNum2].ultra
   ); // note: whichFunc, the last value, will need to be changed depending on which index in methodArray the player's attack function is.
 
   let enemy = new Character(
-    json.enemies[randomNum].id,
-    json.enemies[randomNum].health,
-    json.enemies[randomNum].damage,
-    json.enemies[randomNum].defense,
-    json.enemies[randomNum].imageurl,
-    json.enemies[randomNum].whichFunc
+    json.enemies[randNum].id,
+    json.enemies[randNum].health,
+    json.enemies[randNum].damage,
+    json.enemies[randNum].defense,
+    json.enemies[randNum].imageurl,
+    json.enemies[randNum].whichFunc
   ); // first enemy created.
 
-  // ************************************* Images *************************************
+  // ************************************* UI & Images *************************************
 
   let sprite = document.querySelector("#sprite");
-  sprite.innerHTML = `<img src="${player.imageurl}" alt="char-image">`; // player image.
+  let img = document.createElement("img");
+  img.setAttribute("src", player.imageurl); // player image.
+  img.setAttribute("alt", "char-image");
+  sprite.appendChild(img);
+
+  let playerName = document.getElementById("selectedPlayerName");
+  playerName.innerHTML = player.id; // displays "Hero" above image.
 
   let picture = document.querySelector("#picture");
-  picture.innerHTML = `<img src="${enemy.imageurl}" alt="char-image">`; // enemy image.
+  let img1 = document.createElement("img");
+  img1.setAttribute("src", enemy.imageurl); // enemy image.
+  img1.setAttribute("alt", "char-image");
+  picture.appendChild(img1);
 
+  let enemyName = document.getElementById("selectedEnemyName");
+  enemyName.innerHTML = enemy.id; // displays enemy id above image.
+
+  // *********** Initial text console messages ***********
+
+  let attackResult = document.getElementById("displayBox"); // the text console in the UI.
+  let display = document.createElement("p");
+  display.innerHTML = `You are playing as a ${player.id}, HP: ${player.health} DMG: ${player.damage} DEF: ${player.defense}`;
+  attackResult.appendChild(display);
   console.log(
     `You are playing as a ${player.id}, HP: ${player.health} DMG: ${player.damage} DEF: ${player.defense}`
   );
 
+  let result1 = document.createElement("p");
+  result1.innerHTML = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
+  attackResult.appendChild(result1);
   console.log(
     `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
   );
@@ -81,128 +102,121 @@
       json.enemies[randomNum].whichFunc
     );
 
+    let result1 = document.createElement("p");
+    result1.innerHTML = `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`;
+    attackResult.appendChild(result1);
+    console.log(
+      `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
+    );
+
     picture = document.querySelector("#picture");
     picture.innerHTML = `<img src="${enemy.imageurl}" alt="char-image">`;
   }
 
-  function ogreAttack() {
-    console.log(`${enemy.id} attacks you...`);
+  function attackLog(attackerName, playerLog) {
+    // for displaying a turn's attack information.
+    let attackResult = document.getElementById("displayBox");
+
+    let display = document.createElement("p");
+    display.innerHTML = attackerName;
+    attackResult.appendChild(display);
+
+    let display1 = document.createElement("p");
+    display1.innerHTML = playerLog;
+    attackResult.appendChild(display1);
+  }
+
+  function updateHealth(heroHealth, enemyHealth) {
+    // updates the healthbar.
+    document.getElementById("PlayerHealth").value = heroHealth;
+    document.getElementById("villanHealth").value = enemyHealth;
+  }
+
+  function enemyAttack() {
+    let playerLog;
+    const attackerName = `${enemy.id} engages you...`;
+    console.log(attackerName);
     player.health = player.health - (enemy.damage - player.defense);
     if (player.health >= 1) {
-      console.log(
-        `${enemy.id} hits you with his club, dealing ${
-          enemy.damage - player.defense
-        } damage! Your HP: ${player.health}`
-      );
+      enemy.whichFunc == 0
+        ? (playerLog = `${enemy.id} hits you with his sword, dealing ${
+            enemy.damage - player.defense
+          } damage! Your HP: ${player.health}`)
+        : enemy.whichFunc == 1
+        ? (playerLog = `${enemy.id} strikes bone against bone, dealing ${
+            enemy.damage - player.defense
+          } damage! Your HP: ${player.health}`)
+        : enemy.whichFunc == 2
+        ? (playerLog = `${enemy.id} slashes you, dealing ${
+            enemy.damage - player.defense
+          } damage! Your HP: ${player.health}`)
+        : (playerLog = `${
+            enemy.id
+          } strikes you with his Abyss Greatsword, dealing ${
+            enemy.damage - player.defense
+          } damage! Your HP: ${player.health}`);
     } else {
+      enemy.whichFunc == 0
+        ? (playerLog = `${enemy.id}'s final club swing dealt ${
+            enemy.damage - player.defense
+          } damage and defeated you!`)
+        : enemy.whichFunc == 1
+        ? (playerLog = `${enemy.id}'s final attack dealt ${
+            enemy.damage - player.defense
+          } damage and defeated you!`)
+        : enemy.whichFunc == 2
+        ? (playerLog = `${enemy.id} slashes you, dealing ${
+            enemy.damage - player.defense
+          } damage! Your HP: ${player.health}`)
+        : (playerLog = `${
+            enemy.id
+          } swings his Greatsword for the final time dealing ${
+            enemy.damage - player.defense
+          } damage and defeats you!`);
+
+      gameover.textContent = "GAME OVER!";
+      result.style.visibility = "visible";
+      let finalBlow = document.querySelector("#finalBlow");
+      finalBlow.textContent = `${enemy.id}'s sword swing dealt ${
+        enemy.damage - player.defense
+      } damage and defeated you!`; // shown on game over splash screen.
       console.log(
-        `${enemy.id}'s final club swing dealt ${
+        `${enemy.id}'s sword swing dealt ${
           enemy.damage - player.defense
         } damage and defeated you!`
       );
 
-      gameover.textContent = "GAME OVER!";
-
-      document.querySelector("#turn").classList.add("invisible"); // replace Attack button with Reset.
-      document.querySelector("#reset").classList.remove("invisible");
+      /* document.querySelector("#attack").classList.add("invisible"); // replace Attack button with Reset.
+      document.querySelector("#ultra").classList.add("invisible");
+      document.querySelector("#reset").classList.remove("invisible"); */
     }
+    attackLog(attackerName, playerLog);
+    updateHealth(player.health, enemy.health);
+
+    document.getElementById("enemyHealthCount").textContent = enemy.health;
+    document.getElementById("playerHealthCount").textContent = player.health;
+  }
+  function ogreAttack() {
+    enemyAttack();
   }
 
   function skeleAttack() {
-    console.log(`${enemy.id} attacks you...`);
-    player.health = player.health - (enemy.damage - player.defense);
-    if (player.health >= 1) {
-      console.log(
-        `${enemy.id} strikes bone against bone, dealing ${
-          enemy.damage - player.defense
-        } damage! Your HP: ${player.health}`
-      );
-    } else {
-      console.log(
-        `${enemy.id}'s final attack dealt ${
-          enemy.damage - player.defense
-        } damage and defeated you!`
-      );
-
-      gameover.textContent = "GAME OVER!";
-
-      document.querySelector("#turn").classList.add("invisible"); // replace Attack button with Reset.
-      document.querySelector("#reset").classList.remove("invisible");
-    }
+    enemyAttack();
   }
 
   function wereAttack() {
-    console.log(`${enemy.id} attacks you...`);
-    player.health = player.health - (enemy.damage - player.defense);
-    if (player.health >= 1) {
-      console.log(
-        `${enemy.id} slashes you, dealing ${
-          enemy.damage - player.defense
-        } damage! Your HP: ${player.health}`
-      );
-    } else {
-      console.log(
-        `${enemy.id}'s final slash dealt ${
-          enemy.damage - player.defense
-        } damage and defeated you!`
-      );
-
-      gameover.textContent = "GAME OVER!";
-
-      document.querySelector("#turn").classList.add("invisible"); // replace Attack button with Reset.
-      document.querySelector("#reset").classList.remove("invisible");
-    }
+    enemyAttack();
   }
 
   function demonAttack() {
-    console.log(`${enemy.id} attacks you...`);
-    player.health = player.health - (enemy.damage - player.defense);
-    if (player.health >= 1) {
-      console.log(
-        `${enemy.id} uses black magic, dealing ${
-          enemy.damage - player.defense
-        } damage! Your HP: ${player.health}`
-      );
-    } else {
-      console.log(
-        `${enemy.id}'s final dark spell dealt ${
-          enemy.damage - player.defense
-        } damage and defeated you!`
-      );
-
-      gameover.textContent = "GAME OVER!";
-
-      document.querySelector("#turn").classList.add("invisible"); // replace Attack button with Reset.
-      document.querySelector("#reset").classList.remove("invisible");
-    }
+    enemyAttack();
   }
 
   function artoriasAttack() {
-    console.log(`${enemy.id} attacks you...`);
-    player.health = player.health - (enemy.damage - player.defense);
-    if (player.health >= 1) {
-      console.log(
-        `${enemy.id} strikes you with his Abyss Greatsword, dealing ${
-          enemy.damage - player.defense
-        } damage! Your HP: ${player.health}`
-      );
-    } else {
-      console.log(
-        `${enemy.id} swings his Greatsword for the final time dealing ${
-          enemy.damage - player.defense
-        } damage and defeats you!`
-      );
-
-      gameover.textContent = "GAME OVER!";
-
-      document.querySelector("#turn").classList.add("invisible"); // replace Attack button with Reset.
-      document.querySelector("#reset").classList.remove("invisible");
-    }
+    enemyAttack();
   }
 
-  function heroAttack() {
-    console.log(`You attack the ${enemy.id}...`);
-    enemy.health = enemy.health - (player.damage - enemy.defense);
+  function normHeroAttack() {
     if (enemy.health >= 1) {
       console.log(
         `You dealt ${player.damage - enemy.defense} damage! ${enemy.id} HP: ${
@@ -216,12 +230,14 @@
           enemy.id
         } was defeated! Total victories: ${winCount}`
       );
+      player.health = Number(player.health);
       player.health = player.health + Math.round(enemy.damage / 3);
       console.log(
         `You recovered ${Math.round(enemy.damage / 3)} health! Your HP: ${
           player.health
         }`
       ); // Every enemy defeated gives you some health back.
+
       if (winCount % 2 == 0) {
         player.health = player.health + 3; // Every two enemies you defeat gives you bonus health.
         console.log(
@@ -233,37 +249,24 @@
         `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
       );
     }
+    document.getElementById("enemyHealthCount").textContent =
+      enemy.health + " HP";
+    document.getElementById("playerHealthCount").textContent =
+      player.health + " HP";
+  }
+
+  function heroAttack() {
+    const attackerName = `You attack the ${enemy.id}...`;
+    console.log(attackerName);
+    enemy.health = enemy.health - (player.damage - enemy.defense);
+    normHeroAttack();
   }
 
   function heroUltra() {
-    console.log(`This is the ultra move!!`);
+    const attackerName = `You attack the ${enemy.id}...This is the ultra move!!`;
+    console.log(attackerName);
     enemy.health = enemy.health - player.damage;
-    if (enemy.health >= 1) {
-      console.log(
-        `You dealt ${player.damage} damage! ${enemy.id} HP: ${enemy.health}`
-      );
-    } else {
-      winCount++;
-      console.log(
-        `Ultra move! ${enemy.id} was defeated! Total victories: ${winCount}`
-      );
-      player.health = player.health + Math.round(enemy.damage / 3);
-      console.log(
-        `You recovered ${Math.round(enemy.damage / 3)} health! Your HP: ${
-          player.health
-        }`
-      ); // Every enemy defeated gives you some health back.
-      if (winCount % 2 == 0) {
-        player.health = player.health + 3; // Every two enemies you defeat gives you bonus health.
-        console.log(
-          `Your battle experience defeating multiple foes has made you stronger; you gained 3 HP! Your HP: ${player.health}`
-        );
-      }
-      newEnemy(); // create a new enemy after defeating the previous one.
-      console.log(
-        `New enemy ${enemy.id} appeared! HP: ${enemy.health} DMG: ${enemy.damage} DEF: ${enemy.defense}`
-      );
-    }
+    normHeroAttack();
   }
 
   let methodArray = [
