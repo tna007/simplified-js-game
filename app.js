@@ -1,37 +1,79 @@
 const keyAPI = config.KEY;
 const baseAPI = config.BASE;
+let display = document.getElementById("display");
+let attackBtn = document.getElementById("turn");
 
 let enemyCount = 1;
-let randomInt = Math.floor(Math.random() * 732);
+let randomInt = Math.floor(Math.random() * 150);
+
+class Player {
+  constructor(name, HP, damage) {
+    this.name = name;
+    this.HP = HP;
+    this.damage = damage;
+  }
+}
+class Enemy {
+  constructor(name, HP, damage) {
+    this.name = name;
+    this.HP = HP;
+    this.damage = damage;
+  }
+}
+let player = new Player("Hero", 150, 50, 1);
+console.log(player);
 
 (function getEnemy() {
   const url = baseAPI + keyAPI + "/" + randomInt + "/powerstats";
-  console.log(url);
+  let enemy;
   fetch(url)
     .then((resp) => resp.json())
-    .then(getEnemDetail);
-  console.log(resp);
+    .then((data) => {
+      let id = data.name;
+      let damage = data.power;
+      let HP = data.durability;
+      //let defense = data.strength;
+      enemy = new Enemy(id, HP, damage);
+      console.log(enemy);
+      getAttack(enemy);
+    });
 })();
-function getEnemDetail(data) {
-  console.log(data);
-}
-/* let player = {
-  id: "Hero",
-  health: 10,
-  damage: 5,
-  defense: 1,
-};
 
-function playerAttack() {
-  enemy.health = enemy.health - (player.damage - enemy.defense);
-  if (enemy.health >= 1) {
-    console.log(
-      `${enemy.id} took ${player.damage - enemy.defense} damage! ${
-        enemy.id
-      } HP: ${enemy.health}`
-    );
+function getAttack(a) {
+  a.HP = a.HP - player.damage;
+  player.HP = player.HP - a.damage;
+  if (player.HP >= 1) {
+    console.log(`You took ${a.damage} damage! Your HP: ${player.HP}`);
   } else {
+    console.log(`You took ${a.damage} damage and were defeated!`);
+    return;
+  }
+  if (a.HP >= 1) {
     console.log(
+      `${a.name} took ${player.damage} damage! ${a.name} HP: ${a.HP}`
+    );
+    a.HP = getAttack(a.HP);
+  } else {
+    //if (enemy.HP < 1) {
+    console.log(
+      `${a.name} took ${player.damage} damage and was defeated! Total victories: ${enemyCount}`
+    );
+    enemyCount++;
+    return;
+  }
+}
+
+/* if (enemyCount >= 3) {
+        enemyDefense = 3;
+      }
+      enemyHP = 10;
+      console.log(
+        `A new ${enemy.id} appeared! ||HP: ${enemy.health}|| ||DMG: ${enemy.damage}|| ||DEF: ${enemy.defense}||`
+      ); */
+
+//else {
+
+/* console.log(
       `${enemy.id} took ${
         player.damage - enemy.defense
       } damage and was defeated! Total victories: ${enemyCount}`
@@ -46,31 +88,8 @@ function playerAttack() {
     );
   }
 } */
-/* let enemy = {
-  id: "Monster",
-  health: 10,
-  damage: 3,
-  defense: 0,
-};
- */
-/* function enemyAttack() {
-  player.health = player.health - (enemy.damage - player.defense);
-  if (player.health >= 1) {
-    console.log(
-      `You took ${enemy.damage - player.defense} damage! Your HP: ${
-        player.health
-      }`
-    );
-  } else {
-    console.log(
-      `You took ${enemy.damage - player.defense} damage and were defeated!`
-    );
-    document.querySelector("#turn").classList.add("invisible");
-    document.querySelector("#reset").classList.remove("invisible");
-  }
-}
 
-console.log("Object Test v1.1");
+/*
 
 console.log(
   `You are playing as a ${player.id}, ||HP: ${player.health}|| ||DMG: ${player.damage}|| ||DEF: ${player.defense}||`
