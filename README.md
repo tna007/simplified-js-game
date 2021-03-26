@@ -1,6 +1,4 @@
-# simplified-js-game
-
-This is a small group project at BC Helsinki using Vanilla JS and pure CSS to create a simplified turn-base game with features as below:
+This is a small group project at BC Helsinki using Vanilla JS and pure CSS to create a simplified turn-base game. The project was developed using Agile software development methods (SCRUM) in approximately 2-3 full working days with features as below:
 
 * 2 action buttons represent a normal attack and an ultra attack.
 * Fetch random opponent from own JSON.
